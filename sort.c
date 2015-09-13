@@ -21,6 +21,28 @@ int data3[2][5] = {
 
 typedef int (*sort_func)(int *, int);
 
+int selection_sort(int *buf, int len)
+{
+	int i = 0, j =0;
+
+	for(i = 0; i < len; i++) {
+		int min = i;
+		for(j = i + 1; j < len; j++) {
+			if (buf[j] < buf[min])
+				min = j;
+		}
+
+		if (min != i) {
+			int tmp = buf[i];
+			buf[i] = buf[min];
+			buf[min] = tmp;
+		}
+
+	}
+
+	return 0;
+}
+
 int bubble_sort(int *buf, int len)
 {
 	int i = 0, j = 0;
@@ -60,7 +82,7 @@ static int __test_sort(sort_func f, int *__buf, int *res, int len)
 	return 0;
 }
 
-static void test_sort()
+static void test_bubble_sort()
 {
 	int ret = 0;
 
@@ -81,8 +103,30 @@ static void test_sort()
 	assert(!ret);
 }
 
+static void test_selection_sort()
+{
+	int ret = 0;
+
+
+	ret = __test_sort(selection_sort, data1[0], data1[1],
+			sizeof(data1[0]) / sizeof(data1[0][0]));
+
+	assert(!ret);
+
+	ret = __test_sort(selection_sort, data2[0], data2[1],
+			sizeof(data2[0]) / sizeof(data2[0][0]));
+
+	assert(!ret);
+
+	ret = __test_sort(selection_sort, data3[0], data3[1],
+			sizeof(data3[0]) / sizeof(data3[0][0]));
+
+	assert(!ret);
+}
+
 int main(int argc, char **argv)
 {
-	test_sort();
+	test_bubble_sort();
+	test_selection_sort();
 	return 0;
 }
