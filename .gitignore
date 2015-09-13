@@ -1,0 +1,5 @@
+*.o
+.*
+/sort
+/sort.dSYM
+!.gitignore
