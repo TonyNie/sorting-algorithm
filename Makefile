@@ -1,7 +1,7 @@
 CC=gcc
 
 
-sort:sort.c
+sort:sort.c test.c
 	$(CC) -g -o $@ $^
 
 
