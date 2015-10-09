@@ -60,6 +60,26 @@ int bubble_sort(int *buf, int len)
 	return 0;
 }
 
+int insertion_sort(int *buf, int len)
+{
+	int i = 0;
+
+	for(i = 1; i < len; i++) {
+		int j = 0;
+		int s = buf[i];
+
+		for(j = i - 1; j >= 0; j--) {
+			if (s < buf[j])
+				buf[j + 1] = buf[j];
+			else
+				break;
+		}
+
+		buf[j + 1] = s;
+	}
+
+	return 0;
+}
 
 static int __test_sort(sort_func f, int *__buf, int *res, int len)
 {
@@ -124,9 +144,32 @@ static void test_selection_sort()
 	assert(!ret);
 }
 
+static void test_insertion_sort()
+{
+	int ret = 0;
+
+
+	ret = __test_sort(insertion_sort, data1[0], data1[1],
+			sizeof(data1[0]) / sizeof(data1[0][0]));
+
+	assert(!ret);
+
+	ret = __test_sort(insertion_sort, data2[0], data2[1],
+			sizeof(data2[0]) / sizeof(data2[0][0]));
+
+	assert(!ret);
+
+	ret = __test_sort(insertion_sort, data3[0], data3[1],
+			sizeof(data3[0]) / sizeof(data3[0][0]));
+
+	assert(!ret);
+}
+
+
 int main(int argc, char **argv)
 {
 	test_bubble_sort();
 	test_selection_sort();
+	test_insertion_sort();
 	return 0;
 }
